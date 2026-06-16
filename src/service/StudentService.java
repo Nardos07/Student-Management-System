@@ -1,18 +1,23 @@
 package service;
 
 import model.Student;
-import java.util.ArrayList;
+import repository.ObjectFileHandler;
 
-//StudentService class on service package
+import java.util.ArrayList;
 
 public class StudentService {
 
-    private ArrayList<Student> students = new ArrayList<>();
+    private ArrayList<Student> students;
+    private ObjectFileHandler fileHandler = new ObjectFileHandler();
 
+
+    public StudentService(ArrayList<Student> students) {
+        this.students = students;
+    }
 
     public void addStudent(Student student) {
         students.add(student);
-        System.out.println("Student added successfully!");
+        fileHandler.saveObjects(students);
     }
 
     public Student searchStudent(int id) {
@@ -21,20 +26,20 @@ public class StudentService {
                 return s;
             }
         }
-        return null; // not found
+        return null;
     }
 
-
-    public void updateStudent(int id, String name, String department, double gpa) {
+    // =========================
+    // ✏️ UPDATE
+    // =========================
+    public void updateStudent(int id, String name, String dept, double gpa) {
         Student s = searchStudent(id);
 
         if (s != null) {
             s.setName(name);
-            s.setDepartment(department);
+            s.setDepartment(dept);
             s.setGpa(gpa);
-            System.out.println("Student updated successfully!");
-        } else {
-            System.out.println("Student not found!");
+            fileHandler.saveObjects(students);
         }
     }
 
@@ -43,21 +48,7 @@ public class StudentService {
 
         if (s != null) {
             students.remove(s);
-            System.out.println("Student deleted successfully!");
-        } else {
-            System.out.println("Student not found!");
-        }
-    }
-
-
-    public void displayAllStudents() {
-        if (students.isEmpty()) {
-            System.out.println("No students found!");
-            return;
-        }
-
-        for (Student s : students) {
-            System.out.println(s);
+            fileHandler.saveObjects(students);
         }
     }
 
