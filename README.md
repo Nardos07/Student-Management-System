@@ -107,15 +107,10 @@ src/
 │
 └── Main.java
 
-data/
-│
-├── students.txt
-├── students.dat
-└── students.ser
+Project Structure
 
-backup/
-│
-└── students_backup.ser
+data/
+└── students.ser
 
 README.md
 
